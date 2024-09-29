@@ -53,3 +53,38 @@ void free_array(int *arr) {
   arr = NULL;
   printf("Array freed\n");
 }
+
+struct Point {
+  int x;
+  int y;
+};
+
+void print_point(struct Point p) { printf("x: %d - y: %d\n", p.x, p.y); }
+
+// NOTE: we cannot just stack allocate a struct here and return it (out of scope
+// => cannot be used in python) we need to dynamically allocate it instead
+struct Point *get_point() {
+  struct Point *p = malloc(sizeof *p);
+  p->x = 10;
+  p->y = 20;
+  return p;
+}
+
+struct Student {
+  char *name;
+};
+
+void print_student_details(struct Student s) { printf("%s\n", s.name); }
+
+struct Student *get_student() {
+  struct Student *s = (struct Student *)malloc(sizeof(struct Student));
+  s->name = strdup("Test");
+  return s;
+}
+
+// generic free
+void free_ptr(void *ptr) {
+  free(ptr);
+  ptr = NULL;
+  printf("Freed ptr\n");
+}
